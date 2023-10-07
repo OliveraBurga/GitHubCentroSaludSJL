@@ -1,0 +1,23 @@
+{
+  "name": "piliclinico",
+  "version": "1.0.0",
+  "description": "",
+  "main": "config.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.1.2",
+    "services": "0.0.3",
+    "webpack": "^5.85.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "html-webpack-plugin": "^5.5.1",
+    
+    "webpack-cli": "^5.1.1"
+  }
+}

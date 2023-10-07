@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Table V03</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="https://assets.joselitosoft.com/library/jquery/jquery-1.11.1.js"></script>
+<!--===============================================================================================-->	
+ 
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="https://assets.joselitosoft.com/atencion/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="https://assets.joselitosoft.com/atencion/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="https://assets.joselitosoft.com/atencion/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="https://assets.joselitosoft.com/atencion/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="https://assets.joselitosoft.com/atencion/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="https://assets.joselitosoft.com/atencion/css/util.css">
+	<link rel="stylesheet" type="text/css" href="https://assets.joselitosoft.com/atencion/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div style="padding: 20px;">
+		<h1 class="h1 mb-4 text-center" style="font-weight: bold;">Pacientes en  Triaje</h1>
+
+				<div class="table100 ver2 m-b-110">
+					<table data-vertable="ver2">
+						<thead>
+							<tr class="row100 head">
+								<th class="column100 column1" data-column="column1"></th>
+								<th class="column100 column2" data-column="column2">N° ATENCION</th>
+								<th class="column100 column3" data-column="column3">PACIENTE</th>
+								<th class="column100 column4" data-column="column4">PERSONAL MEDICO</th>
+								<th class="column100 column5" data-column="column5">SERVICIO</th>
+                                <th class="column100 column6" data-column="column6">ESTADO</th>
+							 
+							</tr>
+						</thead>
+						<tbody name="triaje"></tbody>
+					</table>
+				</div>
+	</div>
+
+	<div style="padding: 20px;">
+		<h1 class="h1 mb-4 text-center" style="font-weight: bold;">Pacientes en  Atencion</h1>
+
+				<div class="table100 ver2 m-b-110">
+					<table data-vertable="ver2">
+						<thead>
+							<tr class="row100 head">
+								<th class="column100 column1" data-column="column1"></th>
+								<th class="column100 column2" data-column="column2">N° ATENCION</th>
+								<th class="column100 column3" data-column="column3">PACIENTE</th>
+								<th class="column100 column4" data-column="column4">PERSONAL MEDICO</th>
+								<th class="column100 column5" data-column="column5">SERVICIO</th>
+                                <th class="column100 column6" data-column="column6">ESTADO</th>
+							 
+							</tr>
+						</thead>
+						<tbody name="atencion"></tbody>
+					</table>
+				</div>
+	</div>
+
+
+	<script>
+
+        let Componente = {
+    
+            select_atencion_paciente: () =>{
+    
+                $('tbody[name="triaje"]').html('');
+    
+            $.get('../../server/public/publico/atencion/get_atencion_ejecucion', function(data) {
+    
+                let html ='';
+                let count = 1;
+    
+                data.forEach(row => {
+            
+                    html = `
+                         <tr class="row100">
+								<td class="column100 column1" data-column="column1">`+count+`</td>
+								<td class="column100 column2" data-column="column2">`+row.atencion+`</td>
+								<td class="column100 column3" data-column="column3">`+row.paciente+`</td>
+								<td class="column100 column4" data-column="column4">`+row.personal+`</td>
+								<td class="column100 column5" data-column="column5">`+row.servicio+` </td>
+                                <td class="column100 column6" data-column="column6">--</td>
+								 
+							</tr>
+                    `;
+    
+                    $('tbody[name="triaje"]').append(html);
+                    count ++;   
+                 });
+            });
+      
+            },
+			select_plan_atencion_paciente: () =>{
+    
+					$('tbody[name="atencion"]').html('');
+
+				$.get('../../server/public/publico/atencion/get_plan_atencion_ejecucion', function(data) {
+
+					let html ='';
+					let count = 1;
+
+					data.forEach(row => {
+
+						html = `
+							<tr class="row100">
+									<td class="column100 column1" data-column="column1">`+count+`</td>
+									<td class="column100 column2" data-column="column2">`+row.atencion+`</td>
+									<td class="column100 column3" data-column="column3">`+row.paciente+`</td>
+									<td class="column100 column4" data-column="column4">`+row.personal+`</td>
+									<td class="column100 column5" data-column="column5">`+row.servicio+` </td>
+									<td class="column100 column6" data-column="column6">--</td>
+									
+								</tr>
+						`;
+
+						$('tbody[name="atencion"]').append(html);
+						count ++;   
+					});
+				});
+
+				},
+							
+            recargar_ventana: () =>{
+           
+            Componente.select_atencion_paciente();
+			Componente.select_plan_atencion_paciente();
+
+            ahoraSonLas = setTimeout(Componente.recargar_ventana,10000); 
+			 
+
+            },
+     
+    
+            };
+    
+            $(document).ready(function(){        
+            
+    
+            Componente.recargar_ventana();
+    
+     
+       
+           });
+    
+    </script>
+
+<!--===============================================================================================-->	
+	<script src="https://assets.joselitosoft.com/atencion/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="https://assets.joselitosoft.com/atencion/vendor/bootstrap/js/popper.js"></script>
+	<script src="https://assets.joselitosoft.com/atencion/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="https://assets.joselitosoft.com/atencion/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="https://assets.joselitosoft.com/atencion/js/main.js"></script>
+  
+</body>
+</html>
